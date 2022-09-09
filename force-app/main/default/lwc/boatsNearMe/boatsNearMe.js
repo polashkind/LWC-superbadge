@@ -1,5 +1,5 @@
 import { api, wire, LightningElement } from 'lwc';
-import getBoartsByLocation from 'salesforce/apex/BoatDataService.getBoatsByLocation';
+import getBoatsByLocation from '@salesforce/apex/BoatDataService.getBoatsByLocation';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const LABEL_YOU_ARE_HERE = 'You are here!';
@@ -20,7 +20,7 @@ export default class BoatsNearMe extends LightningElement {
   // Add the wired method from the Apex Class
   // Name it getBoatsByLocation, and use latitude, longitude and boatTypeId
   // Handle the result and calls createMapMarkers
-  @wire(getBoartsByLocation, {latitude: '$latitude', longitude: '$longitude', boatTypeId: '$boatTypeId'})
+  @wire(getBoatsByLocation, {latitude: '$latitude', longitude: '$longitude', boatTypeId: '$boatTypeId'})
   wiredBoatsJSON({error, data}) {
     if (data) {
         this.createMapMarkers(data);
@@ -61,8 +61,8 @@ export default class BoatsNearMe extends LightningElement {
             return {
                 title: boat.Name,
                 location: {
-                    Latitude: boat.Geolocation_Latitude__c,
-                    Longitude: boat.Geolocation_Longitude__c
+                    Latitude: boat.Geolocation_Latitude__s,
+                    Longitude: boat.Geolocation_Longitude__s
                 }
             }
         });
